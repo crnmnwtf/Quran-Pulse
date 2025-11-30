@@ -1,0 +1,135 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                String   @id @default(cuid())
+  email             String   @unique
+  name              String?
+  currentIqraLevel  Int      @default(1)
+  totalPracticeTime Int      @default(0)
+  currentStreak     Int      @default(0)
+  longestStreak     Int      @default(0)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  // Relations
+  progress   Progress[]
+  recordings Recording[]
+  assessments Assessment[]
+  userBadges UserBadge[]
+  sessions   Session[]
+}
+
+model Lesson {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  iqraLevel   Int
+  arabicText  String
+  translation String?
+  tajwidRules String?
+  audioUrl    String?
+  order       Int
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  recordings Recording[]
+  sessions   Session[]
+}
+
+model Recording {
+  id        String   @id @default(cuid())
+  userId    String
+  lessonId  String
+  audioUrl  String
+  score     Float?
+  feedback  String?
+  duration  Int
+  createdAt DateTime @default(now())
+
+  // Relations
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  lesson Lesson @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+}
+
+model Progress {
+  id              String   @id @default(cuid())
+  userId          String
+  date            DateTime @default(now())
+  iqraLevel       Int
+  averageScore    Float
+  practiceTime    Int
+  recordingsCount Int
+
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, date])
+}
+
+model Assessment {
+  id             String   @id @default(cuid())
+  userId         String
+  title          String
+  status         String
+  score          Float?
+  grade          String?
+  certificateUrl String?
+  startedAt      DateTime @default(now())
+  completedAt    DateTime?
+
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Badge {
+  id          String @id @default(cuid())
+  title       String
+  description String
+  iconUrl     String
+  requirement String
+  createdAt   DateTime @default(now())
+
+  // Relations
+  userBadges UserBadge[]
+}
+
+model UserBadge {
+  id        String   @id @default(cuid())
+  userId    String
+  badgeId   String
+  earnedAt  DateTime @default(now())
+
+  // Relations
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  badge Badge @relation(fields: [badgeId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, badgeId])
+}
+
+model Session {
+  id             String   @id @default(cuid())
+  userId         String
+  lessonId       String
+  startTime      DateTime @default(now())
+  endTime        DateTime?
+  status         String   @default("active")
+  recordingsCount Int     @default(0)
+
+  // Relations
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  lesson Lesson @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+}
