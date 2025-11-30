@@ -96,17 +96,29 @@ export function AudioRecorder({ lessonId, expectedText, onAnalysisComplete }: Au
 
   const handleAnalyze = async (blob: Blob) => {
     setAnalysisStatus('analyzing');
-    
-    const formData = new FormData();
-    formData.append('audio', blob, 'recording.webm');
-    formData.append('text', expectedText);
-    formData.append('iqra_level', '3');
-    formData.append('analysis_depth', 'advanced');
+
+    const blobToBase64 = (blob: Blob): Promise<string> => {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          const result = reader.result as string;
+          resolve(result.split(',')[1]); // Remove data URL prefix
+        };
+        reader.onerror = reject;
+        reader.readAsDataURL(blob);
+      });
+    };
 
     try {
-      const response = await fetch('/api/pronunciation/analyze', {
+      const response = await fetch('/api/analyze-pronunciation', {
         method: 'POST',
-        body: formData,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          audioData: await blobToBase64(blob),
+          expectedText: expectedText
+        }),
       });
       
       if (!response.ok) {
