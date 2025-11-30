@@ -13,6 +13,7 @@ import { BadgeDisplay } from '@/components/badge-display';
 import { TajwidVisualizer } from '@/components/tajwid-visualizer';
 import { AssessmentMode } from '@/components/assessment-mode';
 import { RealTimeFeedback } from '@/components/real-time-feedback';
+import { ThemeToggle } from '@/components/theme-toggle';
 
 // Mock data for demonstration
 const mockUser = {
@@ -144,24 +145,25 @@ export default function QuranPulseApp() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 to-emerald-100 p-4">
+    <div className="min-h-screen bg-gradient-to-br from-background to-muted/20 p-4">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <header className="bg-white rounded-xl shadow-sm p-6 mb-6">
+        <header className="bg-card rounded-xl shadow-sm p-6 mb-6 border">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
               <div className="w-12 h-12 bg-gradient-to-r from-green-600 to-emerald-600 rounded-lg flex items-center justify-center">
                 <BookOpen className="w-6 h-6 text-white" />
               </div>
               <div>
-                <h1 className="text-2xl font-bold text-gray-900">Quran Pulse</h1>
-                <p className="text-sm text-gray-600">Platform Pembelajaran Iqra' Digital</p>
+                <h1 className="text-2xl font-bold text-foreground">Quran Pulse</h1>
+                <p className="text-sm text-muted-foreground">Platform Pembelajaran Iqra' Digital</p>
               </div>
             </div>
             <div className="flex items-center gap-6">
+              <ThemeToggle />
               <div className="text-right">
-                <p className="font-semibold text-gray-900">{mockUser.name}</p>
-                <p className="text-sm text-gray-600">Tahap Iqra' {mockUser.currentIqraLevel}</p>
+                <p className="font-semibold text-foreground">{mockUser.name}</p>
+                <p className="text-sm text-muted-foreground">Tahap Iqra' {mockUser.currentIqraLevel}</p>
               </div>
               <div className="flex items-center gap-2">
                 <Trophy className="w-5 h-5 text-yellow-500" />
@@ -173,7 +175,7 @@ export default function QuranPulseApp() {
 
         {/* Main Content */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <TabsList className="grid w-full grid-cols-5 bg-white shadow-sm">
+          <TabsList className="grid w-full grid-cols-5 bg-card shadow-sm border">
             <TabsTrigger value="dashboard" className="flex items-center gap-2">
               <TrendingUp className="w-4 h-4" />
               Dashboard

@@ -1,0 +1,170 @@
+/* Quran Pulse Theme Styles */
+:root {
+  --background: linear-gradient(135deg, #059669 0%, #16a34a 100%);
+  --foreground: #ffffff;
+}
+
+/* Dark Theme Variables */
+:root {
+  --background: linear-gradient(135deg, #0f172a4 0%, #374151 100%);
+  --foreground: #ffffff;
+}
+
+/* Light Theme */
+[data-theme="light"] {
+  --background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+  --foreground: #1a2021a;
+  --card-background: rgba(255, 255, 255, 0.95);
+  --card-border: rgba(0, 0, 0, 0.1);
+  --text-primary: #1e293b;
+  --text-secondary: #64748b;
+  --text-muted: #6b7280;
+  --accent: #10b981;
+  --success: #22c55e;
+  --warning: #f59e0b;
+  --destructive: #ef4444;
+  --ring: #6b7280;
+}
+
+/* Dark Theme */
+[data-theme="dark"] {
+  --background: linear-gradient(135deg, #0f172a4 0%, #374151 100%);
+  --foreground: #ffffff;
+  --card-background: rgba(0, 0, 0, 0.1);
+  --text-primary: #f8fafc;
+  --text-secondary: #a8b5cf;
+  -text-muted: #6b7280;
+  --accent: #f59e0b;
+  --success: #16a34a;
+  --warning: #dc262e;
+  --destructive: #b91c1;
+  --ring: #374151;
+  --border: #1f293b;
+}
+
+/* Quran Pulse Specific Colors */
+:root {
+  --quran-green: #064e3a;
+  --quran-gold: #f59e0b;
+  --quran-blue: #0891b9;
+  --quran-purple: #6b46c1;
+  --quran-emerald: #10b981;
+  --quran-sunset: #f8fafc;
+}
+
+/* Component Styles */
+.quran-pulse {
+  --header-height: 4rem;
+  --sidebar-width: 280px;
+  --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --hover-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.audio-recorder {
+  --recording-bg: rgba(239, 68, 55, 0.1);
+  --recording-pulse: rgba(239, 68, 55, 0.3);
+  --success-color: #22c55e;
+  --error-color: #ef4444;
+}
+
+.tajwid-highlight {
+  --idgham: #e74c3c;
+  --ikhfa: #45b7d1;
+  --qalqalah: #f39c12;
+  --mad: #f97312;
+  --ghunnah: #9b59b6;
+}
+
+.progress-bar {
+  --success-bg: linear-gradient(90deg, #22c55e, #16a34a);
+  --warning-bg: linear-gradient(90deg, #f59e0b, #dc262e);
+}
+
+/* Card Styles */
+.quran-card {
+  background: var(--card-background);
+  border: 1px solid var(--border);
+  border-radius: var(--border-radius);
+  transition: all 0.3s ease;
+}
+
+.quran-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--hover-shadow);
+}
+
+.btn-quran {
+  background: linear-gradient(135deg, var(--quran-green), var(--quran-emerald));
+  color: white;
+  border: none;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.btn-quran:hover {
+  background: linear-gradient(135deg, var(--quran-gold), var(--quran-green));
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background: var(--text-secondary);
+  color: var(--text-primary);
+}
+
+/* Text Styles */
+.arabic-text {
+  font-family: var(--font-family-arabic);
+  font-size: 1.5rem;
+  line-height: 2;
+  text-align: right;
+  letter-spacing: 0.05em;
+}
+
+.tajwid-text {
+  font-family: var(--font-family-arabic);
+  font-size: 2rem;
+  line-height: 2.5;
+  letter-spacing: normal;
+}
+
+.pronunciation-text {
+  font-family: var(--font-family-arabic);
+  font-size: 1.25rem;
+  line-height: 1.8;
+  color: var(--text-secondary);
+}
+
+/* Navigation Styles */
+.nav-header {
+  background: linear-gradient(90deg, var(--quran-green), var(--quran-emerald));
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.nav-item {
+  color: rgba(255, 255, 255, 0.9);
+  transition: all 0.2s ease;
+}
+
+.nav-item:hover {
+  color: rgba(255, 255, 255, 1);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .quran-card {
+    margin: 0.5rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .arabic-text {
+    font-size: 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .quran-card {
+    padding: 1rem;
+  }
+}
